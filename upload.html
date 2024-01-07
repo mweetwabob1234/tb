@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload an image</title>
+</head>
+<body>
+    <h1>Upload a Chest X-Ray Image for TB Analysis</h1>
+    <form method="POST" enctype="multipart/form-data" action="/">
+        <input type="file" name="file" accept=".jpg, .jpeg, .png">
+        <input type="submit" value="Analyze">
+    </form>
+    
+    <h2>Registered Users:</h2>
+    <ul>
+        {% for user in users %}
+            <li>{{ user.name }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h3>Analysis Result:</h3>
+    <p>{{ result }}</p>
+    
+    <a href="/registration">Register a New User</a>
+</body>
+</html>

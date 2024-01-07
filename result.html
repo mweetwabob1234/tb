@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Result</title>
+</head>
+<body>
+    <h1>Analysis Result: {{ result }}</h1>
+    
+    <h2>Choose a User and Upload Results:</h2>
+    <form method="POST" action="/upload_results">
+        <select name="user_id">
+            {% for user in users %}
+                <option value="{{ user.id }}">{{ user.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="result_text">Result Text:</label><br>
+        <textarea name="result_text" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Upload Results">
+    </form>
+    
+    <a href="/">Back to Upload</a>
+</body>
+</html>

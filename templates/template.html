@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TB Analysis Application</title>
+
+    
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('../images/b.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        form {
+            margin: 20px 0;
+        }
+        input[type="text"], input[type="file"], input[type="date"], input[type="submit"] {
+            width: 50%;
+            max-width: 300px;
+            padding: 10px;
+            margin: 10px auto;
+            display: block;
+            border: none;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .search-section, .results-section, .analysis-result {
+            margin-bottom: 20px;
+            text-align: center; /* Center align text */
+        }
+    </style>
+    
+    
+    
+    
+</head>
+<body>
+    <div class="container">
+        <h1>UPLOAD A CHEST X-RAY  IMAGE FOR TB ANALYSIS</h1>
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <input type="submit" value="Analyze">
+        </form>
+
+        {% if analysis_result %}
+            <div class="results-section">
+                <h2>Analysis Result: {{ analysis_result }}</h2>
+                <form method="post">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" required><br>
+                    <label for="id_number">ID Number:</label>
+                    <input type="text" name="id_number" required><br>
+                    <label for="nrc">NRC:</label>
+                    <input type="text" name="nrc" required><br>
+                    <label for="date_of_testing">Date of Testing:</label>
+                    <input type="date" name="date_of_testing" required><br>
+                    <input type="hidden" name="result" value="{{ analysis_result }}">
+                    <input type="submit" value="Upload Results">
+                </form>
+            </div>
+        {% endif %}
+
+        <hr>
+
+        <div class="search-section">
+            <h1>SEARCH BY ID NUMBER</h1>
+            <form method="post">
+                <input type="text" name="search_id" placeholder="Enter ID Number" value="{{ search_id }}">
+                <input type="submit" value="Search">
+            </form>
+
+            {% if user_not_found %}
+                <p>User not found with ID: {{ search_id }}</p>
+            {% elif user_details %}
+                <h2>User Details:</h2>
+                <p>Name: {{ user_details[1] }}</p>
+                <p>ID Number: {{ user_details[2] }}</p>
+                <p>NRC: {{ user_details[3] }}</p>
+                <p>Date of Testing: {{ user_details[4] }}</p>
+                <p>Results: {{ user_details[5] }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
